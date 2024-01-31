@@ -1,6 +1,5 @@
 package in.techcamp.pictweet;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+
 @Controller
 //@AllArgsConstructor
 //@RequiredArgsConstructor
@@ -38,7 +38,6 @@ public class TweetController {
 
     @PostMapping("/tweets")
     public String saveTweet(@ModelAttribute("tweetForm") TweetEntity tweetEntity, Authentication authentication,
-
                             Model model) {
         User authenticatedUser = (User) authentication.getPrincipal();
         String username = authenticatedUser.getUsername();
