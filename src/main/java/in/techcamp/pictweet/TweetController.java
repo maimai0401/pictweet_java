@@ -51,12 +51,6 @@ public class TweetController {
         }
         return "redirect:/";
     }
-
-//                            ){
-//        tweetRepository.insert(form.getName(),form.getContent(),form.getImage());
-//        return "redirect:/";
-//    }
-
 }
 
 
