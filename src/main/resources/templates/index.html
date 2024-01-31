@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div th:insert="~{header :: header}"></div>
+
+
+<a th:href="@{/tweetForm}">新規投稿画面</a>
+
+<!--&lt;!&ndash;th:each  eachメソッドと同様&ndash;&gt;-->
+<!--<ul th:each="tweet:${tweetList}">-->
+<!--  <li th:text="${tweet.getMemo()}">-->
+<!--  </li>-->
+<!--</ul>-->
+
+<table class="issue-table">
+  <tr>
+    <th>id</th>
+    <th>タイトル</th>
+    <th>内容</th>
+  </tr>
+  <form method="post">
+    <tr th:each="tweet:${tweetList}">
+      <td th:text="${tweet.getId()}"></td>
+      <td th:text="${tweet.getName()}"></td>
+      <td th:text="${tweet.getContent()}"></td>
+      <td th:text="${tweet.getImage()}"></td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>
