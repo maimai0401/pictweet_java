@@ -1,5 +1,6 @@
 package in.techcamp.pictweet;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 import java.util.List;
 
@@ -50,6 +53,22 @@ public class TweetController {
             return "error";
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/tweet/{tweetId}")
+    public String showTweetDetail(@PathVariable("tweetId") Integer tweetId, Model model) {
+        TweetEntity tweet;
+
+        try {
+            tweet = tweetRepository.findById(tweetId).orElseThrow(() -> new EntityNotFoundException("tweet not found: " + tweetId));
+        } catch (EntityNotFoundException ex) {
+            model.addAttribute("errorMessage", ex.getMessage());
+            return "error";
+        }
+
+        model.addAttribute("tweet", tweet);
+
+        return "detail";
     }
 }
 
