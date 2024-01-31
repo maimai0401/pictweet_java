@@ -10,5 +10,7 @@ CREATE TABLE IF NOT EXISTS tweets (
    name      VARCHAR(256) NOT NULL,
    content    VARCHAR(256) NOT NULL,
    image     VARCHAR(256) NOT NULL,
-PRIMARY KEY (id)
+   user_id    INT          NOT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (user_id) REFERENCES users(id)
 );
