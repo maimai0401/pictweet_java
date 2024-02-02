@@ -126,6 +126,37 @@ public class TweetController {
         }
         return "redirect:/tweet/" + tweetId;
     }
+
+    @PostMapping("/user/{userId}/tweet/{tweetId}/delete")
+    public String delete(Authentication authentication,
+                         @PathVariable("userId") Integer userId,
+                         @PathVariable("tweetId") Integer tweetId,
+                         Model model) {
+
+        String username = authentication.getName();
+
+        UserEntity user;
+
+        try {
+            user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found: " + userId));
+        }  catch (EntityNotFoundException ex) {
+            model.addAttribute("errorMessage", ex.getMessage());
+            return "error";
+        }
+
+        if (user.getUsername().equals(username)) {
+            try {
+                tweetRepository.deleteById(tweetId);
+            } catch (Exception e){
+                model.addAttribute("errorMessage",e.getMessage());
+                return "error";
+            }
+        } else {
+            model.addAttribute("errorMessage", "イシューの投稿者と一致しません。");
+            return "error";
+        }
+        return "redirect:/";
+    }
 }
 
 
