@@ -28,7 +28,7 @@
     <tr th:each="tweet:${tweetList}">
       <td th:text="${tweet.getId()}"></td>
       <td th:text="${tweet.user.getUsername()}"></td>
-      <td th:text="${tweet.getName()}"></td>
+      <td><a th:text="${tweet.getName()}" th:href="@{/tweet/{tweetId}(tweetId=${tweet.id})}"></a></td>
       <td th:text="${tweet.getContent()}"></td>
       <td th:text="${tweet.getImage()}"></td>
     </tr>
