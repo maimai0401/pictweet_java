@@ -18,4 +18,7 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "user")
     private List<TweetEntity> tweets;
+
+    @OneToMany(mappedBy = "user")
+    private List<CommentEntity> comments;
 }

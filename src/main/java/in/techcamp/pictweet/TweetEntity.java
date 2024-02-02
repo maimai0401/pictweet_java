@@ -2,6 +2,7 @@ package in.techcamp.pictweet;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.List;
 
 
 @Data
@@ -17,4 +18,7 @@ public class TweetEntity {
 
     @ManyToOne
     private UserEntity user;
+
+    @OneToMany(mappedBy = "tweet",cascade = CascadeType.REMOVE)
+    private List<CommentEntity> comments;
 }

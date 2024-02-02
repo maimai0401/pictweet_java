@@ -14,3 +14,13 @@ CREATE TABLE IF NOT EXISTS tweets (
    PRIMARY KEY (id),
    FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS comments (
+  id       INT          NOT NULL AUTO_INCREMENT,
+  message  VARCHAR(256) NOT NULL,
+  user_id  INT          NOT NULL,
+  tweet_id INT          NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id)  REFERENCES users(id),
+  FOREIGN KEY (tweet_id) REFERENCES tweets(id)
+);

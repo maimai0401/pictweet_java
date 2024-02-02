@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 
 import java.util.List;
@@ -25,6 +27,8 @@ public class TweetController {
     private UserRepository userRepository;
 //    private final TweetRepository tweetRepository;
 
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping
     public String showTweet(Model model) {
@@ -56,7 +60,10 @@ public class TweetController {
     }
 
     @GetMapping("/tweet/{tweetId}")
-    public String showTweetDetail(@PathVariable("tweetId") Integer tweetId, Model model) {
+    public String showTweetDetail(@PathVariable("tweetId") Integer tweetId,
+                                  @ModelAttribute("commentEntity") CommentEntity commentEntity,
+
+                                  Model model) {
         TweetEntity tweet;
 
         try {
@@ -65,7 +72,8 @@ public class TweetController {
             model.addAttribute("errorMessage", ex.getMessage());
             return "error";
         }
-
+        List<CommentEntity> comments = commentRepository.findByTweet_id(tweetId);
+        model.addAttribute("comments",comments);
         model.addAttribute("tweet", tweet);
 
         return "detail";
