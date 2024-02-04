@@ -2,47 +2,65 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-  <title>詳細</title>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <title>詳細</title>
 </head>
 
 <body>
 
 <div th:insert="header :: header"></div>
 
-<div class="page-title">
-  <h1>詳細</h1>
+<div class="contents row">
+    <div class="content_post" style="background-image: url(<%= @tweet.image %>);">
+        <!--        th:text="${tweet.getImage()}"-->
+
+        <!--    <% if user_signed_in? && current_user.id == @tweet.user_id %>-->
+        <!--    <div class="more">-->
+        <!--      <span><%= image_tag 'arrow_top.png' %></span>-->
+        <!--      <ul class="more_list">-->
+        <!--        <li>-->
+        <!--          <%= link_to '編集', edit_tweet_path(@tweet.id), method: :get %>-->
+        <!--        </li>-->
+        <!--        <li>-->
+        <!--          <%= link_to '削除', tweet_path(@tweet.id), method: :delete %>-->
+        <!--        </li>-->
+        <!--      </ul>-->
+        <!--    </div>-->
+        <!--    <% end %>-->
+
+        <div class="button" th:if="${#authentication.name == tweet.user.username}">
+            <div class="more">
+                <span><%= image_tag 'arrow_top.png' %></span>
+                <ul class="more_list">
+                    <li>
+                        <a class="update-button"
+                           th:href="@{/user/{userId}/tweet/{tweetId}/edit(userId=${tweet.user.id}, tweetId=${tweet.id})}">編集</a>
+                    </li>
+                    <li>
+                        <form th:action="@{/user/{userId}/tweet/{tweetId}/delete(userId=${tweet.user.id}, tweetId=${tweet.id})}"
+                              method="post">
+                            <input class="delete-button" type="submit" value="削除">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <p>
+        <div th:text="${tweet.getContent()}"></div>
+        </p>
+        <span class="name">
+<!--      <a href="/users/<%= @tweet.user.id %>">-->
+        <span>投稿者</span><div th:text="${tweet.user.getUsername()}"></div>
+            <!--      </a>-->
+    </span>
+    </div>
 </div>
-
-<table class="issue-table">
-  <tr>
-    <th>id</th>
-    <th>投稿者</th>
-    <th>タイトル</th>
-    <th>内容</th>
-    <th>画像</th>
-  </tr>
-  <form method="post">
-    <td th:text="${tweet.getId()}"></td>
-    <td th:text="${tweet.user.getUsername()}"></td>
-    <td th:text="${tweet.getName()}"></td>
-    <td th:text="${tweet.getContent()}"></td>
-    <td th:text="${tweet.getImage()}"></td>
-  </form>
-</table>
-
-<div class="button" th:if="${#authentication.name == tweet.user.username}">
-  <a class="update-button" th:href="@{/user/{userId}/tweet/{tweetId}/edit(userId=${tweet.user.id}, tweetId=${tweet.id})}">更新</a>
-  <form th:action="@{/user/{userId}/tweet/{tweetId}/delete(userId=${tweet.user.id}, tweetId=${tweet.id})}" method="post">
-    <input class="delete-button" type="submit" value="削除">
-  </form>
-</div>
-
-<div th:insert="showComment :: showComment"></div>
 
 <div th:insert="newComment :: newComment"></div>
-
+<div th:insert="showComment :: showComment"></div>
 
 </body>
 </html>
