@@ -10,55 +10,41 @@
 <div th:insert="~{header :: header}"></div>
 
 
-<a th:href="@{/tweetForm}">新規投稿画面</a>
+<a th:href="@{/tweetForm}">投稿する</a>
 
-<table class="issue-table">
-    <tr>
-        <th>id</th>
-        <th>投稿者</th>
-        <th>タイトル</th>
-        <th>内容</th>
-    </tr>
+<div class="contents row">
     <form method="post">
-        <tr th:each="tweet:${tweetList}">
-            <td th:text="${tweet.getId()}"></td>
-            <td th:text="${tweet.user.getUsername()}"></td>
-            <td><a th:text="${tweet.getName()}" th:href="@{/tweet/{tweetId}(tweetId=${tweet.id})}"></a></td>
-            <td th:text="${tweet.getContent()}"></td>
-            <td th:text="${tweet.getImage()}"></td>
-        </tr>
+        <div th:each="tweet:${tweetList}">
+            <div class="content_post" style="background-image: url(<%= tweet.image %>);">
+                <div class="more">
+                    <span><%= image_tag 'arrow_top.png' %></span>
+                    <ul class="more_list">
+                        <li>
+                            <a th:href="@{/tweet/{tweetId}(tweetId=${tweet.id})}">詳細</a>
+                        </li>
+                        <div th:if="${#authentication.name == tweet.user.username}">
+                            <li>
+                                <a class="update-button"
+                                   th:href="@{/user/{userId}/tweet/{tweetId}/edit(userId=${tweet.user.id}, tweetId=${tweet.id})}">編集</a>
+                            </li>
+                            <li>
+                                <form th:action="@{/user/{userId}/tweet/{tweetId}/delete(userId=${tweet.user.id}, tweetId=${tweet.id})}"
+                                      method="post">
+                                    <input class="delete-button" type="submit" value="削除">
+                                </form>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+                <p th:text="${tweet.getContent()}"></p>
+                <span class="name">
+<!--        <a href="/users/<%= tweet.user.id %>">-->
+          <span>投稿者</span><div th:text="${tweet.user.getUsername()}"></div>
+                    <!--        </a>-->
+      </span>
+            </div>
+        </div>
     </form>
-</table>
-
-
-<!--<header class="header">-->
-<!--    <div class="header__bar row">-->
-<!--        <h1 class="grid-6"><a href="/">PicTweet</a></h1>-->
-<!--        <% if user_signed_in? %>-->
-<!--        <div class="user_nav grid-6">-->
-<!--          <span><%= current_user.nickname %>-->
-<!--            <ul class="user__info">-->
-<!--              <li>-->
-<!--                <%= link_to "マイページ", "/users/#{current_user.id}" %>-->
-<!--                <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </span>-->
-<!--            <%= link_to "投稿する", new_tweet_path, class: "post" %>-->
-<!--        </div>-->
-<!--        <% else %>-->
-<!--        <div class="grid-6">-->
-<!--            <%= link_to "ログイン", new_user_session_path, class: 'post' %>-->
-<!--            <%= link_to "新規登録", new_user_registration_path, class: 'post' %>-->
-<!--        </div>-->
-<!--        <% end %>-->
-<!--    </div>-->
-<!--</header>-->
-<!--<%= yield %>-->
-<!--<footer>-->
-<!--    <p>-->
-<!--        Copyright PicTweet 2019.-->
-<!--    </p>-->
-<!--</footer>-->
+</div>
 </body>
 </html>
