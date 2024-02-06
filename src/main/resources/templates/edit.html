@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-  <title>tweet詳細</title>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <title>編集</title>
 </head>
 <body>
-
-<div th:insert="header :: header"></div>
-
-<div class="page-title">
-  <h1>tweet編集</h1>
+<div th:insert="~{header :: header}"></div>
+<div class="contents row">
+    <div class="container">
+        <h3>編集する</h3>
+        <form action="#"
+              th:action="@{/user/{userId}/tweet/{tweetId}/update(userId=${tweet.user.id},tweetId=${tweet.getId()})}"
+              th:method="post" th:object="${tweet}">
+            <input type="text" th:field="*{image}" placeholder="Image Url"/>
+            <textarea th:field="*{content}" required></textarea>
+            <button type="submit">SEND</button>
+        </form>
+    </div>
 </div>
+</body>
+</html>
 
-<div class="form">
-  <form action="#" th:action="@{/user/{userId}/tweet/{tweetId}/update(userId=${tweet.user.id},tweetId=${tweet.getId()})}" th:method="post" th:object="${tweet}">
-    <div class="form_title">
-      <h2>タイトル</h2>
-      <input type="text" id="title" th:field="*{name}">
-    </div>
 
-    <div class="form_content">
-      <h2>内容</h2>
-      <textarea id="content" th:field="*{content}"></textarea>
-    </div>
+<!--<div class="form">-->
+<!--  <form action="#" th:action="@{/user/{userId}/tweet/{tweetId}/update(userId=${tweet.user.id},tweetId=${tweet.getId()})}" th:method="post" th:object="${tweet}">-->
+<!--    <div class="form_title">-->
+<!--      <h2>タイトル</h2>-->
+<!--      <input type="text" id="title" th:field="*{name}">-->
+<!--    </div>-->
 
-    <div class="form_submit">
-      <button type="submit">更新</button>
-    </div>
-  </form>
-</div>
+<!--    <div class="form_content">-->
+<!--      <h2>内容</h2>-->
+<!--      <textarea id="content" th:field="*{content}"></textarea>-->
+<!--    </div>-->
+
+<!--    <div class="form_submit">-->
+<!--      <button type="submit">更新</button>-->
+<!--    </div>-->
+<!--  </form>-->
+<!--</div>-->
 
 </body>
 </html>
