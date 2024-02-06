@@ -15,9 +15,9 @@
 <div class="contents row">
     <form method="post">
         <div th:each="tweet:${tweetList}">
-            <div class="content_post" style="background-image: url(<%= tweet.image %>);">
+            <div class="content_post" th:style="'background-image: url(' + @{${tweet.image}} + ');'">
                 <div class="more">
-                    <span><%= image_tag 'arrow_top.png' %></span>
+                    <span><img th:src="@{/images/arrow_top.png}"/></span>
                     <ul class="more_list">
                         <li>
                             <a th:href="@{/tweet/{tweetId}(tweetId=${tweet.id})}">詳細</a>
