@@ -1,20 +1,26 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
-<header th:fragment="header">
-    <div class="header-container">
-        <div class="header__bar row">
-            <h1 class="grid-6"><a class="header-button" th:href="@{/}">PicTweet</a></h1>
+<header class="header">
+    <div class="header__bar row">
+        <h1 class="grid-6"><a th:href="@{/}">PicTweet</a></h1>
 
-            <div class="user_nav grid-6" th:if="${#authorization.expression('isAuthenticated()')}">
-                <p class="user-name"><span th:text="${#authentication?.name}"></span>さん</p>
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" value="ログアウト"/>
-                </form>
-            </div>
+        <div th:if="${#authorization.expression('isAuthenticated()')}" class="user_nav grid-6">
+            <span>
+            <span th:text="${#authentication?.name}">Username</span>
+            <ul class="user__info">
+                <li>
+                    <a th:href="@{/mypage}">マイページ</a>
+                    <form th:action="@{/logout}" method="post" style="display: inline;">
+                        <input type="submit" value="ログアウト"/>
+                    </form>
+                </li>
+            </ul>
+            </span>
+            <a th:href="@{/tweetForm}" class="post">投稿する</a>
+        </div>
 
-            <div class="user_nav grid-6" th:if="${#authorization.expression('!isAuthenticated()')}">
-                <a th:href="@{/registerForm}">新規登録</a>
-                <a th:href="@{/loginForm}">ログイン</a>
-            </div>
+        <div th:if="${#authorization.expression('!isAuthenticated()')}" class="grid-6">
+            <a th:href="@{/registerForm}" class="post">新規登録</a>
+            <a th:href="@{/loginForm}" class="post">ログイン</a>
         </div>
     </div>
 </header>
