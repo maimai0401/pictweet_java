@@ -113,9 +113,8 @@ public class TweetController {
 
         if (user.getUsername().equals(username)) {
             try {
-                tweet.setName(tweetEntity.getName());
                 tweet.setContent(tweetEntity.getContent());
-
+                tweet.setImage(tweetEntity.getImage());
                 tweetRepository.save(tweet);
             } catch (Exception e) {
                 model.addAttribute("errorMessage", e.getMessage());
