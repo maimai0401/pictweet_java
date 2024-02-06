@@ -1,7 +1,8 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="showComment">
     <div class="container">
-        <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p>
-        </strong>
+        <div th:if="${#authorization.expression('!isAuthenticated()')}">
+            <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+        </div>
         <div class="comments">
             <h4>＜コメント一覧＞</h4>
             <div th:if="${#lists.isEmpty(comments)}">
