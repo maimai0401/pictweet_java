@@ -1,18 +1,23 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="showComment">
-
-    <div class="page-title">
-        <h2>コメント</h2>
-    </div>
-
-    <div class="comment-area">
-        <div th:if="${#lists.isEmpty(comments)}">
-            <p class="no-comment">コメントはまだありません。</p>
-        </div>
-        <div class="comment-wrapper" th:each="comment:${comments}">
-            <div class="comment-top">
-                <p><div th:text="${comment.user.username}"></div>さん</p>
+    <div class="container">
+        <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p>
+        </strong>
+        <div class="comments">
+            <h4>＜コメント一覧＞</h4>
+            <div th:if="${#lists.isEmpty(comments)}">
+                <p class="no-comment">コメントはまだありません。</p>
             </div>
-            <div class="comment-content" th:text="${comment.message}"></div>
+            <div class="comment-wrapper" th:each="comment:${comments}">
+                <p>
+                    <strong>
+                        <div th:text="${comment.user.username}"></div>
+                        さん:</strong>
+                <div class="comment-content" th:text="${comment.message}"></div>
+                </p>
+            </div>
         </div>
     </div>
 </div>
+
+
+

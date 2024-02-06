@@ -13,19 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-
-import java.util.List;
-
 @Controller
-//@AllArgsConstructor
-//@RequiredArgsConstructor
 public class TweetController {
     @Autowired
     private TweetRepository tweetRepository;
 
     @Autowired
     private UserRepository userRepository;
-//    private final TweetRepository tweetRepository;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -33,7 +27,6 @@ public class TweetController {
     @GetMapping
     public String showTweet(Model model) {
         List<TweetEntity> tweetList = tweetRepository.findAll();
-//        var tweetList = tweetRepository.findAll();
         model.addAttribute("tweetList", tweetList);
         return "index";
     }
@@ -73,7 +66,7 @@ public class TweetController {
             return "error";
         }
         List<CommentEntity> comments = commentRepository.findByTweet_id(tweetId);
-        model.addAttribute("comments",comments);
+        model.addAttribute("comments", comments);
         model.addAttribute("tweet", tweet);
 
         return "detail";
@@ -147,7 +140,7 @@ public class TweetController {
 
         try {
             user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found: " + userId));
-        }  catch (EntityNotFoundException ex) {
+        } catch (EntityNotFoundException ex) {
             model.addAttribute("errorMessage", ex.getMessage());
             return "error";
         }
@@ -155,8 +148,8 @@ public class TweetController {
         if (user.getUsername().equals(username)) {
             try {
                 tweetRepository.deleteById(tweetId);
-            } catch (Exception e){
-                model.addAttribute("errorMessage",e.getMessage());
+            } catch (Exception e) {
+                model.addAttribute("errorMessage", e.getMessage());
                 return "error";
             }
         } else {
