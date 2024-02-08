@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <title>ユーザーの投稿</title>
+</head>
+<body>
+<div th:insert="header :: header"></div>
+
+<div class="contents row">
+    <!--    <p>-->
+    <!--    <div th:text="${tweet.user.getUsername()}"></div>-->
+    <!--    さんの投稿一覧</p>-->
+
+    <div th:each="tweet: ${tweetList}">
+        <div class="content_post" th:style="'background-image: url(' + @{${tweet.image}} + ');'">
+            <div class="button" th:if="${#authentication.name == tweet.user.username}">
+                <div class="more">
+                    <span><img th:src="@{/images/arrow_top.png}"/></span>
+                    <ul class="more_list">
+                        <li>
+                            <a class="update-button"
+                               th:href="@{/user/{userId}/tweet/{tweetId}/edit(userId=${tweet.user.id}, tweetId=${tweet.id})}">編集</a>
+                        </li>
+                        <li>
+                            <form th:action="@{/user/{userId}/tweet/{tweetId}/delete(userId=${tweet.user.id}, tweetId=${tweet.id})}"
+                                  method="post">
+                                <input type="hidden" name="_method" value="delete"/>
+                                <input type="submit" value="削除"/>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p>
+            <div th:text="${tweet.content}"></div>
+            </p>
+            <span class="name">
+                <span>投稿者</span><div th:text="${tweet.user.getUsername()}"></div>
+            </span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

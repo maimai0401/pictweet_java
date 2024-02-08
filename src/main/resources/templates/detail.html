@@ -24,8 +24,8 @@
                     <li>
                         <form th:action="@{/user/{userId}/tweet/{tweetId}/delete(userId=${tweet.user.id}, tweetId=${tweet.id})}"
                               method="post">
-                            <input type="hidden" name="_method" value="delete" />
-                            <input type="submit" value="削除" />
+                            <input type="hidden" name="_method" value="delete"/>
+                            <input type="submit" value="削除"/>
                         </form>
                     </li>
                 </ul>
@@ -37,9 +37,10 @@
         <div th:text="${tweet.getContent()}"></div>
         </p>
         <span class="name">
-<!--      <a href="/users/<%= @tweet.user.id %>">-->
-        <span>投稿者</span><div th:text="${tweet.user.getUsername()}"></div>
-            <!--      </a>-->
+<a th:href="@{/users/{userId}/tweets(userId=${tweet.user.id})}">
+        <span>投稿者</span>
+            <div th:text="${tweet.user.getUsername()}"></div>
+                  </a>
     </span>
     </div>
 </div>
