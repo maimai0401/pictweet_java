@@ -9,6 +9,13 @@
 <body>
 <div th:insert="~{header :: header}"></div>
 
+<!-- 検索フォーム -->
+<form action="/search" method="get" class="search-form">
+    <input type="text" name="keyword" placeholder="投稿を検索する" class="search-input"/>
+    <button type="submit" class="search-btn">検索</button>
+</form>
+
+<!--投稿一覧-->
 <div class="contents row">
     <form method="post">
         <div th:each="tweet:${tweetList}">

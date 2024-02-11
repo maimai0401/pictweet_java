@@ -6,4 +6,6 @@ import java.util.List;
 public interface TweetRepository extends JpaRepository<TweetEntity, Integer> {
     // ユーザーIDに基づいて投稿を取得するメソッド
     List<TweetEntity> findByUserId(Integer userId);
+
+    List<TweetEntity> findByContentContaining(String keyword);
 }
