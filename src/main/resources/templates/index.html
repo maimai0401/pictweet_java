@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-    <title>Pictweet</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <title>Pictweet_java</title>
 </head>
 <body>
 <div th:insert="~{header :: header}"></div>
-
-
-<!--<a th:href="@{/tweetForm}">投稿する</a>-->
 
 <div class="contents row">
     <form method="post">
@@ -28,8 +25,8 @@
                                    th:href="@{/user/{userId}/tweet/{tweetId}/edit(userId=${tweet.user.id}, tweetId=${tweet.id})}">編集</a>
                             </li>
                             <li>
-                                <form th:action="@{/user/{userId}/tweet/{tweetId}/delete(userId=${tweet.user.id}, tweetId=${tweet.id})}"
-                                      method="post">
+                                <form method="post"
+                                      th:action="@{/user/{userId}/tweet/{tweetId}/delete(userId=${tweet.user.id}, tweetId=${tweet.id})}">
                                     <input class="delete-button" type="submit" value="削除">
                                 </form>
                             </li>
@@ -38,10 +35,11 @@
                 </div>
                 <p th:text="${tweet.getContent()}"></p>
                 <span class="name">
-<!--        <a href="/users/<%= tweet.user.id %>">-->
-          <span>投稿者</span><div th:text="${tweet.user.getUsername()}"></div>
-                    <!--        </a>-->
-      </span>
+                    <a th:href="@{/users/{userId}/tweets(userId=${tweet.user.id})}">
+                        <span>投稿者</span>
+                        <div th:text="${tweet.user.getUsername()}"></div>
+                    </a>
+                 </span>
             </div>
         </div>
     </form>

@@ -23,7 +23,15 @@ public class TweetController {
 
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private TweetService tweetService;
 
+    // ユーザーIDが渡されたときにそのユーザーが投稿した記事を一覧表示
+    @GetMapping("/users/{userId}/tweets")
+    public String userTweets(@PathVariable Integer userId, Model model) {
+        model.addAttribute("tweetList", tweetService.findTweetsByUserId(userId));
+        return "userTweets"; // 表示するHTMLファイル名
+    }
     @GetMapping
     public String showTweet(Model model) {
         List<TweetEntity> tweetList = tweetRepository.findAll();
