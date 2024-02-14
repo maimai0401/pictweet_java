@@ -1007,13 +1007,17 @@ form button[type="submit"] {
 form button[type="submit"]:hover {
   background-color: #84d3ef;
 }
+.comment-name {
+    font-weight: bold;
+}
 
 .container {
-  margin: 20px 0;
+  margin: auto;
   padding: 30px;
   box-shadow: 0 0 10px rgba(41, 41, 41, 0.2);
   background-color: white;
   box-sizing: border-box;
+  width: 660px;
 }
 
 .container h3 {

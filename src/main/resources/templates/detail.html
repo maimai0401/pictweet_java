@@ -44,9 +44,10 @@
     </span>
     </div>
 </div>
+<div class="container">
 
-<div th:if="${#authorization.expression('isAuthenticated()')}" th:insert="newComment :: newComment"></div>
-<div th:insert="showComment :: showComment"></div>
-
+    <div th:if="${#authorization.expression('isAuthenticated()')}" th:insert="newComment :: newComment"></div>
+    <div th:insert="showComment :: showComment"></div>
+</div>
 </body>
 </html>
