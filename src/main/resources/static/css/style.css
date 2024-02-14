@@ -789,7 +789,7 @@ header.header .user_nav span {
   top: 5px;
   display: block;
   float: left;
-  margin-left: 30px;
+  margin: 0 10px 0 20px;
   width: 150px;
   height: 50px;
   font-size: 1em;
@@ -797,11 +797,7 @@ header.header .user_nav span {
   position: relative;
 }
 
-header.header .user_nav span:after {
-  content: '▼';
-  font-size: .7em;
-  margin-left: -4px;
-}
+
 
 header.header .user_nav span:hover ul {
   color: #57C3E9;
