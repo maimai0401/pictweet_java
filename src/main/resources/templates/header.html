@@ -5,15 +5,15 @@
 
         <div th:if="${#authorization.expression('isAuthenticated()')}" class="user_nav grid-6">
             <span>
-            <span th:text="${#authentication?.name}">Username</span>
-            <ul class="user__info">
-                <li>
-                    <a th:href="@{/mypage}">マイページ</a>
-                    <form th:action="@{/logout}" method="post" style="display: inline;">
-                        <input type="submit" value="ログアウト"/>
-                    </form>
-                </li>
-            </ul>
+                <span th:text="${#authentication?.name} + '▼'">Username</span>
+                <ul class="user__info">
+                    <li>
+                        <a th:href="@{/mypage}">マイページ</a>
+                        <form th:action="@{/logout}" method="post" style="display: inline;">
+                            <input type="submit" value="ログアウト"/>
+                        </form>
+                    </li>
+                </ul>
             </span>
             <a th:href="@{/tweetForm}" class="post">投稿する</a>
         </div>
